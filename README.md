@@ -27,4 +27,4 @@ An advanced analytical web application designed to dissect ride-hailing data. Th
 ### Installation
 1. Clone the repo:
    ```bash
-   git clone [https://github.com/Jay91755/uber-flow-analytics.git]
+   git clone https://github.com/Jay91755/uber-flow-analytics.git
