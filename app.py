@@ -8,7 +8,7 @@ st.set_page_config(page_title="Uber", page_icon="🚗", layout="wide")
 
 #load dataset
 
-df = pd.read_csv("../../uber.csv")
+df = pd.read_csv("uber.csv")
 
 #sidebar menu
 
