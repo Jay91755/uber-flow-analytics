@@ -1,30 +1,181 @@
-# uber-flow-analytics
-"A comprehensive Uber operations dashboard built with Streamlit and Plotly. This end-to-end analytics tool processes ride-hailing data to visualize revenue hierarchies, operational bottlenecks, cancellation audits, and customer sentiment through advanced intelligence modules.
+# 🚗 Uber Ride Intelligence Dashboard
 
-# 🚗 Uber Operations Intelligence Dashboard
+An interactive **data analytics dashboard** built using **Streamlit, Pandas, and Plotly** to analyze ride-sharing operations and extract business insights from Uber ride data.
 
-An advanced analytical web application designed to dissect ride-hailing data. This project provides a 360-degree view of Uber's performance, from financial deep-dives to operational efficiency and customer satisfaction.
+This project demonstrates **data exploration, KPI tracking, operational analysis, and interactive data visualization**, making it a strong portfolio project for **Junior Data Analyst roles**.
 
-## 🌟 Key Features
-* **Operational KPIs:** Real-time tracking of Fulfillment Rate, Gross Booking Value, and Avg Trip Distance.
-* **Ride Intelligence:** High-level visualizations including **Sankey Diagrams** for ride flow and **Sunburst Charts** for revenue hierarchy.
-* **Cancellation Audit:** Automated breakdown of primary triggers for both customer and driver cancellations.
-* **Efficiency Metrics:** Comparative analysis of Turnaround Times (VTAT/CTAT) across different vehicle types.
-* **AI Data Assistant:** A natural language interface to query the dataset and generate instant visual reports.
+---
 
-## 🛠️ Tech Stack
-- **Framework:** Streamlit
-- **Data Handling:** Pandas, NumPy
-- **Graphics:** Plotly Express, Plotly Graph Objects
-- **UI Components:** Streamlit Option Menu
+# 📊 Project Features
 
-## 🚀 Getting Started
+## 1️⃣ Dataset Explorer
+A dynamic data exploration module that allows users to:
 
-### Prerequisites
-- Python 3.8+
-- pip
+- View dataset structure
+- Search across dataset values
+- Filter data by column values
+- Select specific columns
+- Display dataset statistics
+- Download filtered datasets
 
-### Installation
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/Jay91755/uber-flow-analytics.git
+---
+
+## 2️⃣ Business Overview Dashboard
+
+Provides key operational metrics including:
+
+- Gross Booking Value
+- Ride Fulfillment Rate
+- Average Trip Distance
+- Average Customer Rating
+
+Also includes:
+
+- Vehicle Type Performance
+- Revenue Share Analysis
+- Operational Efficiency (VTAT / CTAT)
+- Cancellation Audit
+- Payment Preference Analysis
+
+---
+
+## 3️⃣ Ride Intelligence Analytics
+
+Advanced analytical visualizations including:
+
+- Sunburst Chart for revenue hierarchy
+- Treemap for revenue distribution
+- Box plots for rating analysis
+- Sankey Diagram for ride flow analysis
+
+These visualizations help understand:
+
+- Customer behavior
+- Payment trends
+- Ride completion patterns
+- Revenue distribution
+
+---
+
+## 4️⃣ Operations Dashboard
+
+A full visual analytics dashboard including:
+
+- Ride distribution by vehicle type
+- Revenue comparison
+- Booking status distribution
+- Payment method breakdown
+- Distance vs booking value analysis
+- Customer rating distribution
+
+---
+
+## 5️⃣ Data Assistant (Mini AI-like Feature)
+
+A simple **question-based analytics assistant** where users can ask questions like:
+
+- "total rides"
+- "revenue"
+- "vehicle"
+- "payment"
+- "cancel"
+- "rating"
+- "distance"
+
+The assistant automatically:
+
+- Computes the answer
+- Generates visual charts
+
+---
+
+# 🛠️ Technologies Used
+
+| Technology | Purpose |
+|-------------|------------|
+| Python | Programming Language |
+| Streamlit | Interactive Web Dashboard |
+| Pandas | Data Processing |
+| Plotly | Data Visualization |
+| Streamlit Option Menu | Sidebar Navigation |
+
+---
+
+# 📂 Project Structure
+
+```
+project/
+│
+├── uber.csv
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# ▶️ How to Run the Project
+
+### 1️⃣ Clone the Repository
+
+```
+git clone https://github.com/Jay91755/uber-ride-analytics-dashboard.git
+```
+
+### 2️⃣ Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 3️⃣ Run Streamlit App
+
+```
+streamlit run app.py
+```
+
+---
+
+# 📈 Key Insights This Dashboard Can Reveal
+
+- Which vehicle type generates the most revenue
+- Customer rating trends
+- Cancellation reasons analysis
+- Payment method preferences
+- Ride distance vs booking value patterns
+- Operational efficiency metrics
+
+---
+
+# 🎯 Purpose of This Project
+
+This project was built to demonstrate:
+
+- Data cleaning
+- Data exploration
+- Business KPI analysis
+- Dashboard development
+- Data visualization
+- Interactive analytics tools
+
+It simulates a **real-world business intelligence dashboard for ride-sharing companies**.
+
+---
+
+# 👨‍💻 Author
+
+**Jay Patel**
+
+Aspiring Data Analyst passionate about **data visualization, analytics, and AI-driven insights**.
+
+---
+
+# ⭐ Future Improvements
+
+- Natural Language Query System (AI)
+- Machine Learning Ride Demand Forecasting
+- Real-time data integration
+- Interactive filtering across all charts
+- Predictive cancellation analysis
+
+---
