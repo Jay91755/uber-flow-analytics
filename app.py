@@ -378,7 +378,7 @@ if selected == "DashBoard":
                      color = "Vehicle Type")
 
     f10.update_layout(height=500)
-
+ 
     st.plotly_chart(f10, use_container_width=True)
 
 
