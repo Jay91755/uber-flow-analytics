@@ -14,10 +14,10 @@ df = pd.read_csv("uber.csv")
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Dataset", "Overview", "Ride Analytics", "DashBoard", "Data Assistant"],
-                           icons=["table", "bar-chart", "graph-up", "screen", "robot"],
+                           icons=["table", "bar-chart", "graph-up", "cpu", "robot"],
                            menu_icon="car-front", default_index=0)
 
-#dataset
+#1.dataset
 if selected == "Dataset":
     st.title("Dataset Explorer")
     st.divider()
@@ -95,6 +95,8 @@ if selected == "Dataset":
     csv = filtered_df.to_csv(index=False).encode("utf-8")
     st.download_button("Download Dataset", csv, "dataset.csv", "text/csv")
 
+
+ #2  Overview
 if selected == "Overview":
     st.title("Uber operations")
     st.divider()
@@ -204,6 +206,7 @@ if selected == "Overview":
         st.info("Missing Booking values Are expected For cancellation Or No driver Rides")
         st.success("Executive Overview Generated From Operational Dataset")
 
+# 3. Ride Analytics
 if selected == "Ride Analytics":
     st.title("Advance Ride Intelligence Dashboard")
     st.divider()
@@ -269,64 +272,120 @@ if selected == "Ride Analytics":
     fig4.update_layout(height=550)
     st.plotly_chart(fig4, use_container_width=True)
 
+
+#4. Dashboard
 if selected == "DashBoard":
+
+    st.title("**Visual Dashboard**")
+    st.caption("This Contains Basic Visual representation Of Dataset")
+    st.divider()
+
     bar, hbar = st.columns(2)
     completed = df[df["Booking Status"] == "Completed"]
     with bar:
         vehicle = completed["Vehicle Type"].value_counts()
         fig= px.bar(x=vehicle.index,y=vehicle.values,
-                    title="Number of Rides by Vehicle Type")
+                    title="Number of Rides by Vehicle Type",
+                    labels={"x":"Vehicle Type","y":"Number of Rides"},
+                    color = vehicle.index)
+
+        fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
 
     with hbar:
         revenue = completed.groupby("Vehicle Type")["Booking Value"].sum()
         fig = px.bar(x=revenue.values,y=revenue.index,orientation="h",title="Revenue By Vehicle Type",
-                     labels={"x":"Revenue","y":"Vehicle Name"})
-
+                     labels={"x":"Revenue","y":"Vehicle Name"},
+                     color = revenue.index)
+        fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
     st.divider()
 
     pie,pie2 = st.columns(2)
+
     with pie:
         status = df["Booking Status"].value_counts()
-        fig = px.pie(names=status.index,values=status.values,hole=0.4)
+        fig = px.pie(names=status.index,values=status.values,hole=0.4,
+                     title="Booking Status Distribution")
+        fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
     with pie2:
         statu = df["Payment Method"].value_counts()
-        fig= px.pie(names=statu.index,values=statu.values)
+        fig= px.pie(names=statu.index,values=statu.values,title="Payment Method Distribution")
+        fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
+
     st.divider()
 
     scatter,hist = st.columns(2)
+
     with scatter:
-        fig = px.scatter(completed,x="Ride Distance",y="Booking Value",color="Vehicle Type")
+        fig = px.scatter(completed,x="Ride Distance",y="Booking Value",color="Vehicle Type",title="Ride Distance vs Booking Value")
+        fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
     with hist:
-        fig = px.histogram(completed,x="Customer Rating",nbins=30,title="Customer Rating",color="Vehicle Type")
-        st.plotly_chart(fig, use_container_width=True)
+        fig3 = px.histogram(completed, x="Customer Rating", nbins=35, title="Customer Rating Distribution",color="Vehicle Type")
+        fig3.update_traces(marker_line_width=1.5, marker_line_color="white")
+        st.plotly_chart(fig3, use_container_width=True)
+
     st.divider()
 
-    hbar2,bar2 = st.columns(2)
-    with hbar2:
-        cust_reason = (df["Reason for cancelling by Customer"].dropna().value_counts().head(3))
-        drv_reason = (df["Driver Cancellation Reason"].dropna().value_counts().head(3))
+    cust_reason = (df["Reason for cancelling by Customer"].dropna().value_counts())
+    drv_reason = (df["Driver Cancellation Reason"].dropna().value_counts())
 
-        cust_reason.index = "Customer " + cust_reason.index
-        drv_reason.index = "Driver " + drv_reason.index
+    cust_reason.index = "Customer " + cust_reason.index
+    drv_reason.index = "Driver " + drv_reason.index
 
-        reason_df = pd.concat([cust_reason, drv_reason])
+    reason_df = pd.concat([cust_reason, drv_reason])
+
+    fig = px.bar(x=reason_df.values,y=reason_df.index,
+                     title="Cancellation Reasons Analysis",
+                     color = reason_df.index,orientation="h",
+                 labels={"x":"Number Of Cancellation","y":"Reasons"},)
+
+    fig.update_layout(height=500)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()
+
+    col1,col2 = st.columns(2)
+    with col1:
+
+        avg_distance = df.groupby("Vehicle Type")["Ride Distance"].mean()
+
+        fig = px.bar(x=avg_distance.index,y=avg_distance.values,
+                     title="Average Distance by Vehicle Type",
+                     labels={"x":"Vehicle Type","y":" Average Ride Distance"},
+                     color = avg_distance.index)
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    with col2:
+        fig = px.histogram(completed, x="Booking Value", nbins=30, title=" Booking Value Distribution",
+                            color="Vehicle Type")
+        fig.update_traces(autobinx=True,marker_line_width=1.5, marker_line_color="white")
+        st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()
+
+    fig = px.scatter(completed, x="Avg CTAT", y="Avg VTAT",
+                     title="Average CTAT VS Average VTAT",
+                     labels={"x":"Avg CTAT","y":"Avg VTAT"},
+                     color = "Vehicle Type")
+
+    fig.update_layout(height=500)
+
+    st.plotly_chart(fig, use_container_width=True)
 
 
-
-
+# Data Assistant
 
 def Show_graph():
-    btn = st.button("Show Graph")
-    if btn:
-        return True
+    return st.button("Show Graph")
 
 
 if selected == "Data Assistant":
