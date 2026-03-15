@@ -280,9 +280,9 @@ if selected == "DashBoard":
     st.caption("This Contains Basic Visual representation Of Dataset")
     st.divider()
 
-    bar, hbar = st.columns(2)
+    f1,f2 = st.columns(2)
     completed = df[df["Booking Status"] == "Completed"]
-    with bar:
+    with f1:
         vehicle = completed["Vehicle Type"].value_counts()
         fig= px.bar(x=vehicle.index,y=vehicle.values,
                     title="Number of Rides by Vehicle Type",
@@ -293,7 +293,7 @@ if selected == "DashBoard":
         st.plotly_chart(fig, use_container_width=True)
 
 
-    with hbar:
+    with f2:
         revenue = completed.groupby("Vehicle Type")["Booking Value"].sum()
         fig = px.bar(x=revenue.values,y=revenue.index,orientation="h",title="Revenue By Vehicle Type",
                      labels={"x":"Revenue","y":"Vehicle Name"},
@@ -302,16 +302,16 @@ if selected == "DashBoard":
         st.plotly_chart(fig, use_container_width=True)
     st.divider()
 
-    pie,pie2 = st.columns(2)
+    f3,f4 = st.columns(2)
 
-    with pie:
+    with f3:
         status = df["Booking Status"].value_counts()
         fig = px.pie(names=status.index,values=status.values,hole=0.4,
                      title="Booking Status Distribution")
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
-    with pie2:
+    with f4:
         statu = df["Payment Method"].value_counts()
         fig= px.pie(names=statu.index,values=statu.values,title="Payment Method Distribution")
         fig.update_layout(height=500)
@@ -319,17 +319,17 @@ if selected == "DashBoard":
 
     st.divider()
 
-    scatter,hist = st.columns(2)
+    f5,f6 = st.columns(2)
 
-    with scatter:
+    with f5:
         fig = px.scatter(completed,x="Ride Distance",y="Booking Value",color="Vehicle Type",title="Ride Distance vs Booking Value")
         fig.update_layout(height=500)
         st.plotly_chart(fig, use_container_width=True)
 
-    with hist:
-        fig3 = px.histogram(completed, x="Customer Rating", nbins=35, title="Customer Rating Distribution",color="Vehicle Type")
-        fig3.update_traces(marker_line_width=1.5, marker_line_color="white")
-        st.plotly_chart(fig3, use_container_width=True)
+    with f6:
+        fig = px.histogram(completed, x="Customer Rating", nbins=35, title="Customer Rating Distribution",color="Vehicle Type")
+        fig.update_traces(marker_line_width=1.5, marker_line_color="white")
+        st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
 
@@ -341,19 +341,19 @@ if selected == "DashBoard":
 
     reason_df = pd.concat([cust_reason, drv_reason])
 
-    fig = px.bar(x=reason_df.values,y=reason_df.index,
+    f7 = px.bar(x=reason_df.values,y=reason_df.index,
                      title="Cancellation Reasons Analysis",
                      color = reason_df.index,orientation="h",
                  labels={"x":"Number Of Cancellation","y":"Reasons"},)
 
-    fig.update_layout(height=500)
+    f7.update_layout(height=500)
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(f7, use_container_width=True)
 
     st.divider()
 
-    col1,col2 = st.columns(2)
-    with col1:
+    f8,f9 = st.columns(2)
+    with f8:
 
         avg_distance = df.groupby("Vehicle Type")["Ride Distance"].mean()
 
@@ -364,7 +364,7 @@ if selected == "DashBoard":
 
         st.plotly_chart(fig, use_container_width=True)
 
-    with col2:
+    with f9:
         fig = px.histogram(completed, x="Booking Value", nbins=30, title=" Booking Value Distribution",
                             color="Vehicle Type")
         fig.update_traces(autobinx=True,marker_line_width=1.5, marker_line_color="white")
@@ -372,17 +372,17 @@ if selected == "DashBoard":
 
     st.divider()
 
-    fig = px.scatter(completed, x="Avg CTAT", y="Avg VTAT",
+    f10 = px.scatter(completed, x="Avg CTAT", y="Avg VTAT",
                      title="Average CTAT VS Average VTAT",
                      labels={"x":"Avg CTAT","y":"Avg VTAT"},
                      color = "Vehicle Type")
 
-    fig.update_layout(height=500)
+    f10.update_layout(height=500)
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(f10, use_container_width=True)
 
 
-# Data Assistant
+# 5.Data Assistant
 
 def Show_graph():
     return st.button("Show Graph")
